@@ -8,7 +8,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="css/favicon.ico">
+    <!-- <link rel="icon" href="css/favicon.ico"> -->
 
     <title>Narrow Jumbotron Template for Bootstrap</title>
 
@@ -44,11 +44,18 @@
         <p class="lead">This is a guessing game. Guess a number between 1 and 100 below. You have 5 guesses, but we will tell you if you're hot or cold.</p>
         <p>
           <div class="col-lg-3">
-            <div class="input-group">
+            <!-- <div class="input-group">
               <span class="input-group-addon" id="basic-addon1">#</span>
               <input type="number" class="form-control" placeholder="Input your Number" aria-describedby="basic-addon1">
+            </div> -->
+            <div class="input-append">
+              <input class="span2" id="appendedInputButton" type="text">
+              <button class="btn btn-primary" id="submit" type="button">Submit</button>
             </div>
+            <div class="user-response"></div>
+            <div class="gameover"></div>
           </div>
+          <!-- <button type="submit" class="btn btn-primary" id="submit">Submit</button> -->
         </p>
         <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Guess</a></p> -->
       </div>
@@ -56,7 +63,7 @@
       <div class="row marketing">
         <div class="col-xs-6 col-sm-3">
           <h4>Start a New Game</h4>
-          <button type="button" class="btn btn-primary">New Game</button>
+          <button type="button" class="btn btn-primary" id="new-game">New Game</button>
           <!-- <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p> -->
 
           <!-- <h4>Subheading</h4>
@@ -68,7 +75,8 @@
 
         <div class="col-xs-6 col-sm-3">
           <h4>Need a Hint?</h4>
-          <button type="button" class="btn btn-primary">Hint</button>
+          <button type="button" class="btn btn-primary" id="hint">Hint</button>
+          <div class="hint"></div>
           <!-- <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p> -->
 
           <!-- <h4>Subheading</h4>
@@ -77,6 +85,19 @@
           <h4>Subheading</h4>
           <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p> -->
         </div>
+
+        <div class="col-xs-6 col-sm-3">
+          <h4>Guesses:</h4>
+          <div class="guesses">
+            <ul>
+              <li id="1">Guess 1: </li>
+              <li id="2">Guess 2: </li>
+              <li id="3">Guess 3: </li>
+            </ul>
+          </div>
+        </div>
+
+
       </div>
 
       <footer class="footer">
@@ -87,6 +108,8 @@
 
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+    <script src="js/jquery-2.1.4.js"></script>
+    <script src="application.js"></script>
   </body>
 </html>
