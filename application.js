@@ -38,6 +38,7 @@ jQuery(document).ready(function() {
         numGuesses = numGuesses - 1;
         console.log(numGuesses);
         displayCurrentGuess(numGuesses);
+        isGameOver(numGuesses);
 
       }
 
@@ -48,6 +49,7 @@ jQuery(document).ready(function() {
         numGuesses = numGuesses - 1;
         console.log(numGuesses);
         displayCurrentGuess(numGuesses);
+        isGameOver(numGuesses);
 
       }
 
@@ -61,15 +63,15 @@ jQuery(document).ready(function() {
 
       var displayCurrentGuess = function(whichguess) {
 
-        if (whichguess = 2) {
+        if (whichguess == 2) {
           // $(".guesses").find("li:first").text("Guess 1: " + input);
           $(".guesses").find("#1").text("Guess 1: " + input);
 
-        } else if (whichguess = 1) {
+        } else if (whichguess == 1) {
           // $(".guesses").find("li:odd").text("Guess 2: " + input);
           $(".guesses").find("#2").text("Guess 2: " + input);
 
-        } else if (whichguess = 0) {
+        } else if (whichguess == 0) {
           // $(".guesses").find("li:last").text("Guess 3: " + input);
           $(".guesses").find("#3").text("Guess 3: " + input);
         }
@@ -77,8 +79,53 @@ jQuery(document).ready(function() {
 
       }
 
+      var isGameOver = function(currentNumGuesses) {
+
+        if (currentNumGuesses == 0) {
+
+          $(".gameover").text("That was your last guess. Game Over!");
+          $(".user-response").text("The number was " + randomNum);
+
+        }
+        return;
+
+      }
+
+      var hotOrCold = function(theGuess) {
+
+        // if it's the first guess, then go through this sequence
+          // if the guess is lower then the number, say to guess higher
+            // and if that lower guess is within 15 of the guess, say it is hot
+            if (Math.abs(theGuess - randomNum) < 15) {
+              // hot guess
+              $(".hotorcold").text("That guess is Hot!");
+            } else {
+              // otherwise say it is cold
+              $(".hotorcold").text("Sorry, that guess is Cold.");
+            }
+
+      }
+
+      var hotterOrColder = function(theGuess2, guessArray) {
+
+        // if it is NOT the first guess
+          //if the guess is lower than the number, say to guess higher
+            // and if the difference between this guess and the number is less than that of the previous guess and the number, say "getting hotter!"
+
+          if (Math.abs(theGuess2 - randomNum) < Math.abs(guessArray[guessArray.length - 2] - randomNum)) {
+
+            $(".hotorcold").text("You're getting hotter!");
+
+          } else {
+
+            $(".hotorcold").text("Sorry, you're getting colder.");
+
+          }
+
+      }
+
       // Game over if the user uses 3 guesses
-      if (numGuesses > 1) {
+      if (numGuesses >= 1) {
 
         // grab the value of the user's input and validate that it is a real number from 1-100
         if ((+$(this).val() >= 1) && (+$(this).val() <= 100) && (+$(this).val() % 1 == 0)) {
@@ -113,10 +160,15 @@ jQuery(document).ready(function() {
           //
           // }
 
-          // 2nd attempt if statement - doesn't work yet
+          // 2nd attempt if statement
           if (input == randomNum) {
 
             $(".user-response").text("YOU WIN!!");
+            // flashing background if the guess is correct, change all fonts to comic sans too.
+            $(".hotorcold").text("");
+            $(".container").css({'background-color': 'red'});
+            $(".container").css({'font-family': '"Comic sans"'});
+
 
           } else {
 
@@ -128,6 +180,7 @@ jQuery(document).ready(function() {
               if (input > randomNum) {
 
                       guessLower();
+                      hotOrCold(input);
                       // $(".user-response").text("Not quite. You need to guess lower.");
                       // guessArray.push(input);
                       // numGuesses = numGuesses - 1;
@@ -135,6 +188,7 @@ jQuery(document).ready(function() {
               } else {
 
                       guessHigher();
+                      hotOrCold(input);
                       // $(".user-response").text("Not quite. You need to guess higher.");
                       // guessArray.push(input);
                       // numGuesses = numGuesses - 1;
@@ -156,6 +210,7 @@ jQuery(document).ready(function() {
                     } else {
 
                       guessLower();
+                      hotterOrColder(input, guessArray);
                       // $(".user-response").text("Not quite. You need to guess lower.");
                       // guessArray.push(input);
                       // numGuesses = numGuesses - 1;
@@ -174,6 +229,7 @@ jQuery(document).ready(function() {
                     } else {
 
                       guessHigher();
+                      hotterOrColder(input, guessArray);
                       // $(".user-response").text("Not quite. You need to guess higher.");
                       // guessArray.push(input);
                       // numGuesses = numGuesses - 1;
